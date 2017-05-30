@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Window Opening</title>
+	<style type="text/css">
+		body {
+			margin: 20px;
+			position: relative;
+		}
+		div#win, div#win2 {
+			width: calc(2087px / 2.25);
+			height: calc(1639px / 2.25);
+			background-image: url(window.png);
+			background-size: 100%;
+			box-shadow: 0 2px 9px rgba(0,0,0,0.3);
+		}
+		div#win {
+			position: relative;
+			transition: all 0.1s ease;
+			clear: both;
+		}
+		div#win2 {
+			position: absolute;
+			top: 20px;
+			left: 20px;
+			opacity: 0;
+			pointer-events: none;
+			transform: scale(0.98);
+			transition: all 0.3s ease;
+		}
+		.visible {
+			transform: none !important;
+			opacity: 1 !important;
+		}
+		div#menu {
+			position: absolute;
+			right: -20px;
+			top: 80px;
+			width: calc(490px / 2);
+			height: calc(848px / 2);
+			background-image: url(menu.png);
+			background-size: 100%;
+			border: 1px solid #999;
+			box-shadow: 0 2px 9px rgba(0,0,0,0.3);
+		}
+		div#button {
+			width: calc(490px / 2);
+			height: 26px;
+			margin-top: 5px;
+			background: #ccc;
+			opacity: 0;
+			mix-blend-mode: darken;
+		}
+		div#button:hover {
+			opacity: .3;
+		}
+		div#button:active {
+			opacity: .8;
+		}
+		input {
+			display: block;
+			height: 20px;
+			width: 200px;
+			font-size: 16px;
+			margin-bottom: 10px;
+		}
+	</style>
+</head>
+<body>
+	<input type="text" id="time" value="200">
+	Use Alt-Space to test opening a new window using a keyboard shortcut.
+	<div id="win">
+		<div id="menu">
+			<div id="button"></div>
+		</div>
+		<div id="win2"></div>
+	</div>
+
+	<script type="text/javascript">
+	var win = document.getElementById('win')
+	var win2 = document.getElementById('win2')
+	var button = document.getElementById('button')
+	var menu = document.getElementById('menu')
+	
+	var openWindow = function() {
+		menu.style.opacity = 0
+		var time = document.getElementById('time').value
+		setTimeout(() => {
+			win2.classList.add('visible')
+		}, time)
+	}
+
+	button.addEventListener('click', openWindow)
+
+	window.addEventListener('keypress', (e) => {
+		if (e.altKey && e.charCode===160) {
+			openWindow();
+		}
+	})
+	</script>
+</body>
+</html>
