@@ -26,6 +26,8 @@
 			left: 20px;
 			opacity: 0;
 			pointer-events: none;
+		}
+		.use-animation {
 			transform: scale(0.98);
 			transition: all 0.3s ease;
 		}
@@ -58,18 +60,26 @@
 		div#button:active {
 			opacity: .8;
 		}
-		input {
+		div.forms {
 			display: block;
+			margin-bottom: 10px;
+			padding: 10px;
+			background-color: #eee;
+		}
+		input#time {
 			height: 20px;
 			width: 200px;
 			font-size: 16px;
-			margin-bottom: 10px;
 		}
 	</style>
 </head>
 <body>
-	<input type="text" id="time" value="200">
-	Press the N key to open a new window using a shortcut.
+	<div class="forms">
+			<input type="text" id="time" value="300">
+			<input type="checkbox" id="animate" checked><label for="animate">Animate</label><br>
+			Press the N key to open a new window using a shortcut.
+	</div>
+	
 	<div id="win">
 		<div id="menu">
 			<div id="button"></div>
@@ -82,6 +92,7 @@
 	var win2 = document.getElementById('win2')
 	var button = document.getElementById('button')
 	var menu = document.getElementById('menu')
+	var animate = document.getElementById('animate')
 	
 	var openWindow = function() {
 		menu.style.opacity = 0
@@ -91,7 +102,18 @@
 		}, time)
 	}
 
+	var updateAnimationState = function() {
+		if (animate.checked) {
+			win2.classList.add('use-animation')
+		} else {
+			win2.classList.remove('use-animation')
+		}
+	}
+
+	updateAnimationState();
+
 	button.addEventListener('click', openWindow)
+	animate.addEventListener('change', updateAnimationState)
 
 	window.addEventListener('keypress', (e) => {
 		if (e.charCode===110) {
