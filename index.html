@@ -69,7 +69,7 @@
 </head>
 <body>
 	<input type="text" id="time" value="200">
-	Use Alt-Space to test opening a new window using a keyboard shortcut.
+	Press the N key to open a new window using a shortcut.
 	<div id="win">
 		<div id="menu">
 			<div id="button"></div>
@@ -94,7 +94,8 @@
 	button.addEventListener('click', openWindow)
 
 	window.addEventListener('keypress', (e) => {
-		if (e.altKey && e.charCode===160) {
+		if (e.charCode===110) {
+			e.preventDefault()
 			openWindow();
 		}
 	})
